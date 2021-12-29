@@ -1,0 +1,346 @@
+{
+    "type": "object",
+    "properties": {
+        "articleSystemId": {
+            "type": [
+                "integer",
+                "null"
+            ]
+        },
+        "articleNumber": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "goodsOwner": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "id": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            }
+        },
+        "productCode": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "unitCode": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "description": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "isStockArticle": {
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
+        "supplierInfo": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "supplierArticleNumber": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "supplierNumber": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "supplierName": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            }
+        },
+        "barCodeInfo": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "barCode": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "barCodePackage": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "barCodePallet": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "alternativeBarCodes": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "items": {
+                        "type": [
+                            "string"
+                        ]
+                    }
+                }
+            }
+        },
+        "quantityPerPackage": {
+            "type": [
+                "integer",
+                "null"
+            ]
+        },
+        "quantityPerPallet": {
+            "type": [
+                "integer",
+                "null"
+            ]
+        },
+        "weight": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "length": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "width": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "height": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "volume": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "purchasePrice": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "stockValuationPrice": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "customerPrice": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "purcaseCurrencyCode": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "countryOfOriginCode": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "statisticsNumber": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "articleGroup": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "code": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            }
+        },
+        "articleCategory": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "inventoryInfo": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "numberOfItems": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "numberOfBookedItems": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "numberOfLockedItems": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "toReceiveNumberOfItems": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "allocatedNumberOfItems": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "lockedForSaleNumberOfItems": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "pickedToBeCollectedNumberOfItems": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "receivedToBeFinishedNumberOfItems": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "lastInDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "sellableNumberOfItems": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            }
+        },
+        "articleDataLastUpdated": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "format": "date-time"
+        },
+        "articleKind": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "stockLimit": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "minimumReorderQuantity": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "netWeight": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "freeValues": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "subQuantityPerItem": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "classes": {
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    }
+}
