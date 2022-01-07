@@ -1,0 +1,136 @@
+{
+    "type": "object",
+    "properties": {
+        "articleSystemId": {
+            "type": [
+                "integer",
+                "null"
+            ]
+        },
+        "articleNumber": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "items": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "batch": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "container": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "expiryDate": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "isLocked": {
+                        "type": [
+                            "boolean",
+                            "null"
+                        ]
+                    },
+                    "isLockedForSale": {
+                        "type": [
+                            "boolean",
+                            "null"
+                        ]
+                    },
+                    "location": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "numberOfItems": {
+                        "type": [
+                            "number",
+                            "null"
+                        ]
+                    },
+                    "serial": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "status": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "code": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "name": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        }
+                    },
+                    "comment": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "warehouse": {
+                        "type": [
+                            "object",
+                            "null"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
+                            },
+                            "code": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "name": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        }
+                    },
+                    "inDate": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                }
+            }
+        }
+    }
+}
