@@ -73,6 +73,13 @@ class OrdersStream(ongoingStream):
     replication_key = None
     schema_filepath = f"{SCHEMAS_DIR}/orders.json"
 
+    def parse_response(self, response: requests.Response) -> Iterable[dict]:
+        """Parse the response and return an iterator of result rows."""
+        for item in response.json():
+            output = item.get("orderInfo")
+            output["orderLines"] = item.get("orderLines")
+            yield output
+
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
     ) -> Dict[str, Any]:
