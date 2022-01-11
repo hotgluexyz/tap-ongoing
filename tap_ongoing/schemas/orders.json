@@ -265,6 +265,32 @@
                 "string",
                 "null"
             ]
+        },
+        "orderLines": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": [
+                    "null",
+                    "object"
+                ],
+                "properties": {
+                    "id": {
+                        "type": [
+                            "null",
+                            "integer"
+                        ]
+                    },
+                    "rowNumber": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    }
+                }
+            }
         }
     }
 }
