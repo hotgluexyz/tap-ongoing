@@ -7,7 +7,6 @@ from singer_sdk import typing as th
 
 from tap_ongoing.streams import (
     ArticlesStream,
-    InventoryAdjustmentsStream,
     PurchaseOrdersStream,
     OrdersStream,
     ArticleItemsStream
@@ -15,7 +14,6 @@ from tap_ongoing.streams import (
 
 STREAM_TYPES = [
     ArticlesStream,
-    InventoryAdjustmentsStream,
     PurchaseOrdersStream,
     OrdersStream,
     ArticleItemsStream

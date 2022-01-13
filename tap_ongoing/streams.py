@@ -20,26 +20,6 @@ class ArticlesStream(ongoingStream):
     replication_key = None
     schema_filepath = f"{SCHEMAS_DIR}/articles.json"
 
-
-class InventoryAdjustmentsStream(ongoingStream):
-    name = "inventory adjustments"
-    path = "inventoryAdjustments"
-    records_jsonpath = "$[*].inventoryAdjustments"
-    primary_keys = ["inventoryId"]
-    replication_key = None
-    schema_filepath = f"{SCHEMAS_DIR}/inventoryAdjustments.json"
-
-    def get_url_params(
-        self, context: Optional[dict], next_page_token: Optional[Any]
-    ) -> Dict[str, Any]:
-        """Return a dictionary of values to be used in URL parameterization."""
-        params: dict = {}
-        params["goodsOwnerId"] = self.config["goods_owner_id"]
-        params["from"] = self.config["start_date"]
-        if next_page_token:
-            params["page"] = next_page_token
-        return params
-
 class PurchaseOrdersStream(ongoingStream):
     name = "purchase orders"
     path = "purchaseOrders"
