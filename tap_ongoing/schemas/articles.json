@@ -13,6 +13,12 @@
                 "null"
             ]
         },
+        "articleName": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
         "goodsOwner": {
             "type": [
                 "object",
