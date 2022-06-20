@@ -20,7 +20,7 @@ class ongoingStream(RESTStream):
 
     records_jsonpath = "$[*]"
     next_page_token_jsonpath = "$.next_page"
-    timeout = 1500
+    timeout = 2400
 
     @property
     def url_base(self) -> str:
