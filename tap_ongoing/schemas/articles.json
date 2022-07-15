@@ -182,6 +182,7 @@
         },
         "customerPrice": {
             "type": [
+                "number",
                 "string",
                 "null"
             ]
@@ -226,7 +227,20 @@
         },
         "articleCategory": {
             "type": [
+                "object",
                 "string",
+                "null"
+            ]
+        },
+        "customsDescription": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "isActive": {
+            "type": [
+                "boolean",
                 "null"
             ]
         },
@@ -320,6 +334,7 @@
         },
         "minimumReorderQuantity": {
             "type": [
+                "number",
                 "string",
                 "null"
             ]
@@ -332,6 +347,7 @@
         },
         "freeValues": {
             "type": [
+                "object",
                 "string",
                 "null"
             ]

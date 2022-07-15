@@ -31,6 +31,27 @@
                 "null"
             ]
         },
+        "advanced": {
+            "type": [
+                "object",
+                "string",
+                "null"
+            ]
+        },
+        "freeValues": {
+            "type": [
+                "object",
+                "string",
+                "null"
+            ]
+        },
+        "createdDate": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "format": "date-time"
+        },
         "purchaseOrderStatus": {
             "type": [
                 "object",

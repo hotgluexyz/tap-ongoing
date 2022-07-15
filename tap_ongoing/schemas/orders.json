@@ -63,6 +63,7 @@
         },
         "orderType": {
             "type": [
+                "object",
                 "string",
                 "null"
             ]
@@ -214,6 +215,7 @@
         },
         "customsInfo": {
             "type": [
+                "object",
                 "string",
                 "null"
             ]
@@ -226,6 +228,7 @@
         },
         "warehouse": {
             "type": [
+                "object",
                 "string",
                 "null"
             ]
