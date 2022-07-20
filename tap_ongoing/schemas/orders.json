@@ -71,22 +71,9 @@
         "wayOfDelivery": {
             "type": [
                 "object",
+                "string",
                 "null"
-            ],
-            "properties": {
-                "code": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "name": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                }
-            }
+            ]
         },
         "deliveryDate": {
             "type": [
@@ -115,25 +102,19 @@
                 "null"
             ]
         },
+        "returnWayBill": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
         "orderStatus": {
             "type": [
                 "object",
+                "number",
+                "string",
                 "null"
-            ],
-            "properties": {
-                "number": {
-                    "type": [
-                        "integer",
-                        "null"
-                    ]
-                },
-                "text": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                }
-            }
+            ]
         },
         "emailNotification": {
             "type": [
@@ -229,6 +210,7 @@
         "warehouse": {
             "type": [
                 "object",
+                "number",
                 "string",
                 "null"
             ]
@@ -279,6 +261,7 @@
         },
         "pickingPriority": {
             "type": [
+                "integer",
                 "string",
                 "null"
             ]
