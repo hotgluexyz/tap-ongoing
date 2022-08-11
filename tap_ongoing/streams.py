@@ -3,11 +3,10 @@
 from pathlib import Path
 from typing import Any, Dict, Optional, Union, List, Iterable
 
-from singer_sdk import typing as th  # JSON Schema typing helpers
+from singer_sdk import typing as th
 import requests
 
 from tap_ongoing.client import ongoingStream
-from singer_sdk.helpers.jsonpath import extract_jsonpath
 
 
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
@@ -26,6 +25,7 @@ class PurchaseOrdersStream(ongoingStream):
     primary_keys = ["purchaseOrderId"]
     replication_key = None
     schema_filepath = f"{SCHEMAS_DIR}/purchaseOrders.json"
+    stream_params = {"purchaseOrderStatusFrom": 0}
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse the response and return an iterator of result rows."""
@@ -34,17 +34,6 @@ class PurchaseOrdersStream(ongoingStream):
             output["purchaseOrderLines"] = item.get("purchaseOrderLines")
             yield output
 
-    def get_url_params(
-        self, context: Optional[dict], next_page_token: Optional[Any]
-    ) -> Dict[str, Any]:
-        """Return a dictionary of values to be used in URL parameterization."""
-        params: dict = {}
-        params["goodsOwnerId"] = self.config["goods_owner_id"]
-        params["purchaseOrderStatusFrom"] = 0
-        if next_page_token:
-            params["page"] = next_page_token
-        return params
-
 class OrdersStream(ongoingStream):
     name = "orders"
     path = "orders"
@@ -52,6 +41,7 @@ class OrdersStream(ongoingStream):
     primary_keys = ["orderId"]
     replication_key = None
     schema_filepath = f"{SCHEMAS_DIR}/orders.json"
+    paginate = {"start": "orderCreatedTimeFrom", "end": "orderCreatedTimeTo"}
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse the response and return an iterator of result rows."""
@@ -59,17 +49,6 @@ class OrdersStream(ongoingStream):
             output = item.get("orderInfo")
             output["orderLines"] = item.get("orderLines")
             yield output
-
-    def get_url_params(
-        self, context: Optional[dict], next_page_token: Optional[Any]
-    ) -> Dict[str, Any]:
-        """Return a dictionary of values to be used in URL parameterization."""
-        params: dict = {}
-        params["goodsOwnerId"] = self.config["goods_owner_id"]
-        params["orderCreatedTimeFrom"] = self.config["start_date"]
-        if next_page_token:
-            params["page"] = next_page_token
-        return params
 
 
 class ArticleItemsStream(ongoingStream):
@@ -79,14 +58,4 @@ class ArticleItemsStream(ongoingStream):
     primary_keys = ["articleSystemId"]
     replication_key = None
     schema_filepath = f"{SCHEMAS_DIR}/ArticleItems.json"
-
-    def get_url_params(
-        self, context: Optional[dict], next_page_token: Optional[Any]
-    ) -> Dict[str, Any]:
-        """Return a dictionary of values to be used in URL parameterization."""
-        params: dict = {}
-        params["goodsOwnerId"] = self.config["goods_owner_id"]
-        params["articleSystemIdFrom"] = 0
-        if next_page_token:
-            params["page"] = next_page_token
-        return params
+    stream_params = {"articleSystemIdFrom": 0}

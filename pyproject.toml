@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tap-ongoing"
-version = "0.0.3"
+version = "0.0.4"
 description = "`tap-ongoing` is a Singer tap for ongoing, built with the Meltano SDK for Singer Taps."
 authors = ["hotglue"]
 keywords = [
