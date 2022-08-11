@@ -1,15 +1,16 @@
 """REST client handling, including ongoingStream base class."""
 
+from datetime import datetime, timedelta
 import requests
 from pathlib import Path
 from typing import Any, Dict, Optional, Union, List, Iterable
 
-from memoization import cached
 from singer_sdk.authenticators import BasicAuthenticator
 
 from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.streams import RESTStream
 from base64 import b64encode
+from pendulum import parse
 
 
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
@@ -20,7 +21,10 @@ class ongoingStream(RESTStream):
 
     records_jsonpath = "$[*]"
     next_page_token_jsonpath = "$.next_page"
+    stream_params = None
+    paginate = None
     timeout = 2400
+    windows_days = 30
 
     @property
     def url_base(self) -> str:
@@ -50,16 +54,22 @@ class ongoingStream(RESTStream):
         self, response: requests.Response, previous_token: Optional[Any]
     ) -> Optional[Any]:
         """Return a token for identifying next page or None if no more pages."""
-        if self.next_page_token_jsonpath:
-            all_matches = extract_jsonpath(
-                self.next_page_token_jsonpath, response.json()
-            )
-            first_match = next(iter(all_matches), None)
-            next_page_token = first_match
-        else:
-            next_page_token = response.headers.get("X-Next-Page", None)
-
-        return next_page_token
+        if self.paginate:
+            if not previous_token:
+                start_date = self.start_date + timedelta(self.windows_days)
+                end_date = start_date + timedelta(self.windows_days)
+                return {
+                    self.paginate["start"]: start_date,
+                    self.paginate["end"]: end_date
+                }
+            else:
+                next_page_token = previous_token.copy()
+                start = next_page_token[self.paginate["end"]]
+                if start.replace(tzinfo=None) > datetime.utcnow():
+                    return None
+                next_page_token[self.paginate["start"]] = start
+                next_page_token[self.paginate["end"]] = start + timedelta(self.windows_days)
+                return next_page_token
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -67,8 +77,21 @@ class ongoingStream(RESTStream):
         """Return a dictionary of values to be used in URL parameterization."""
         params: dict = {}
         params["goodsOwnerId"] = self.config["goods_owner_id"]
-        if next_page_token:
-            params["page"] = next_page_token
+        if self.stream_params:
+            params.update(self.stream_params)
+        if self.paginate:
+            if next_page_token:
+                params.update(next_page_token)
+            else:
+                start_date = self.get_starting_timestamp(context)
+                config_start_date = parse(self.config.get("start_date"))
+                self.start_date = (start_date or config_start_date)
+                start_date = self.start_date
+                end_date = start_date + timedelta(self.windows_days)
+                params[self.paginate["start"]] = start_date
+                params[self.paginate["end"]] = end_date
+            params[self.paginate["start"]] = params[self.paginate["start"]].isoformat()
+            params[self.paginate["end"]] = params[self.paginate["end"]].isoformat()
         if self.replication_key:
             params["sort"] = "asc"
             params["order_by"] = self.replication_key
