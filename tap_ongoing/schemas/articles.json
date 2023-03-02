@@ -345,7 +345,7 @@
         },
         "netWeight": {
             "type": [
-                "string",
+                "number",
                 "null"
             ]
         },
