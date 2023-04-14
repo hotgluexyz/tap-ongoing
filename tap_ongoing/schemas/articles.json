@@ -358,7 +358,7 @@
         },
         "subQuantityPerItem": {
             "type": [
-                "string",
+                "number",
                 "null"
             ]
         },
