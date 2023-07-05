@@ -218,6 +218,7 @@
         "termsOfDeliveryType": {
             "type": [
                 "string",
+                "object",
                 "null"
             ]
         },
