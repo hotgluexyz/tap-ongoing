@@ -32,6 +32,12 @@ class PurchaseOrdersStream(ongoingStream):
         for item in response.json():
             output = item.get("purchaseOrderInfo")
             output["purchaseOrderLines"] = item.get("purchaseOrderLines")
+            supplier_info = item.get("supplierInfo", {})
+            
+            if supplier_info is not None:
+                for key in supplier_info.keys():
+                    output[key] = item["supplierInfo"].get(key)
+            
             yield output
 
 class OrdersStream(ongoingStream):

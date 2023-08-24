@@ -1,6 +1,19 @@
 {
     "type": "object",
     "properties": {
+        "supplierNumber": {
+            "type": [
+                "string",
+                "number",
+                "null"
+            ]
+        },
+        "supplierName": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
         "purchaseOrderId": {
             "type": [
                 "integer",
