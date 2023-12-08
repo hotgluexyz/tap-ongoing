@@ -11,9 +11,10 @@ from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.streams import RESTStream
 from base64 import b64encode
 from pendulum import parse
-
-
-SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
+from typing import Any, Callable, Dict, Iterable, Optional
+import backoff
+from singer_sdk.exceptions import FatalAPIError, RetriableAPIError
+from requests.exceptions import JSONDecodeError
 
 
 class ongoingStream(RESTStream):
@@ -100,3 +101,16 @@ class ongoingStream(RESTStream):
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse the response and return an iterator of result rows."""
         yield from extract_jsonpath(self.records_jsonpath, input=response.json())
+
+    def request_decorator(self, func: Callable) -> Callable:
+        decorator: Callable = backoff.on_exception(
+            backoff.expo,
+            (
+                RetriableAPIError,
+                requests.exceptions.ReadTimeout,
+                JSONDecodeError
+            ),
+            max_tries=5,
+            factor=2,
+        )(func)
+        return decorator   
