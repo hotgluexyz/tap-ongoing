@@ -1,7 +1,8 @@
 """REST client handling, including ongoingStream base class."""
 
-from datetime import datetime, timedelta
 import requests
+import backoff
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, Optional, Union, List, Iterable
 
@@ -12,9 +13,8 @@ from singer_sdk.streams import RESTStream
 from base64 import b64encode
 from pendulum import parse
 from typing import Any, Callable, Dict, Iterable, Optional
-import backoff
 from singer_sdk.exceptions import FatalAPIError, RetriableAPIError
-from requests.exceptions import JSONDecodeError
+from simplejson.scanner import JSONDecodeError
 
 
 class ongoingStream(RESTStream):
@@ -113,4 +113,11 @@ class ongoingStream(RESTStream):
             max_tries=5,
             factor=2,
         )(func)
-        return decorator   
+        return decorator
+
+    def validate_response(self, response):
+        super().validate_response(response)
+        try:
+            _ = response.json() # noqa
+        except JSONDecodeError:
+            raise RetriableAPIError(f"JSONDecodeError on {response.url}")
